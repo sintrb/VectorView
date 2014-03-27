@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorView", "VectorView\VectorView.csproj", "{584F58D5-3EC2-4881-AD7A-23901A1106DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorViewDemo", "VectorViewDemo\VectorViewDemo.csproj", "{9FEA6D6D-7560-458B-8F37-6C4757192A43}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{584F58D5-3EC2-4881-AD7A-23901A1106DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{584F58D5-3EC2-4881-AD7A-23901A1106DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{584F58D5-3EC2-4881-AD7A-23901A1106DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{584F58D5-3EC2-4881-AD7A-23901A1106DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FEA6D6D-7560-458B-8F37-6C4757192A43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FEA6D6D-7560-458B-8F37-6C4757192A43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FEA6D6D-7560-458B-8F37-6C4757192A43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FEA6D6D-7560-458B-8F37-6C4757192A43}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

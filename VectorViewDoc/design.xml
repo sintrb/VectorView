@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+
+
+
+xml文件格式说明
+	values:值预定义，定义之后通过$valname来获取，支持递归
+		示例：
+			<name>The Name</name>
+
+	brushes:画刷预定义，定义画刷，定义之后在图形中通过brush来设置
+		支持的画刷类型：
+			solid:普通颜色画刷
+				color:画刷颜色
+			hatch:支持前景和背景的画刷
+				forecolor:前景色
+				backcolor:背景色
+				style:样式，支持Horizontal,Vertical,ForwardDiagonal,BackwardDiagonal,Cross,DiagonalCross,Percent05,Percent10,Percent20,Percent25,Percent30,Percent40,Percent50,Percent60,Percent70,Percent75,Percent80,Percent90,LightDownwardDiagonal,LightUpwardDiagonal,DarkDownwardDiagonal,DarkUpwardDiagonal,WideDownwardDiagonal,WideUpwardDiagonal,LightVertical,LightHorizontal,NarrowVertical,NarrowHorizontal,DarkVertical,DarkHorizontal,DashedDownwardDiagonal,DashedUpwardDiagonal,DashedHorizontal,DashedVertical,SmallConfetti,LargeConfetti,ZigZag,Wave,DiagonalBrick,HorizontalBrick,Weave,Plaid,Divot,DottedGrid,DottedDiamond,Shingle,Trellis,Sphere,SmallGrid,SmallCheckerBoard,LargeCheckerBoard,OutlinedDiamond,SolidDiamond,LargeGrid,Min,Max
+		示例：
+			<big1 type="hatch" forecolor="50FF0000" backcolor="FFFFFFFF" style="SolidDiamond"></big1>
+			<big2 type="solid" color="10FF0000" ></big2>
+
+	pens:画笔预定义
+		brush:画刷，也可以直接在pen下面定义画刷，画刷的定义参看上面的内容
+		width:画笔宽度
+		示例:
+			<big1 brush="big1" width="20.0"></big1>
+			<big2 type="solid" color="10FF0000" width="20.0"></big2>
+
+	fonts:字体预定义
+		name:字体名称，如“宋体” “微软雅黑”
+		size:字体大小
+
+	shapes:图形集合
+		line:线
+			x1:起点横坐标
+			y1:起点纵坐标
+			x2:终点横坐标
+			y2:终点纵坐标
+			pen:画笔
+
+		box:矩形框
+			x:横坐标
+			y:纵坐标
+			w:宽
+			h:高
+			fill:是否填充
+			pen:画笔(fill=false)
+			brush:画刷(fill=true)
+      
+		circle:圆
+			x:圆心横坐标
+			y:圆心纵坐标
+			r:直径
+			fill:是否填充
+			pen:画笔(fill=false)
+			brush:画刷(fill=true)
+
+      	ellipse:椭圆
+			x:圆心横坐标
+			y:圆心纵坐标
+			w:宽
+			h:高
+			fill:是否填充
+			pen:画笔(fill=false)
+			brush:画刷(fill=true)
+
+		text:文本
+			x:横坐标
+			y:纵坐标
+			brush:画刷
+			font:字体
+		
+		arc:弧线
+			x:圆心横坐标
+			y:圆心纵坐标
+			w:宽
+			h:高
+			sta:起始角度
+			swa:旋转角度
+			pen:画笔
+
+		pie:饼图
+			x:圆心横坐标
+			y:圆心纵坐标
+			w:宽
+			h:高
+			sta:起始角度
+			swa:旋转角度
+			fill:是否填充
+			pen:画笔(fill=false)
+			brush:画刷(fill=true)
+		
+		path:路径
+			x:横坐标
+			y:纵坐标
+			scale:缩放比例
+
+			<
+				point:路径点
+					x:横坐标
+					y:纵坐标
+				line:线性路径
+					x1:起点横坐标
+					y1:起点纵坐标
+					x2:终点横坐标
+					y2:终点纵坐标
+				arc:弧线
+					x:圆心横坐标
+					y:圆心纵坐标
+					w:宽
+					h:高
+					sta:起始角度
+					swa:旋转角度
+
+				pie:饼图
+					x:圆心横坐标
+					y:圆心纵坐标
+					w:宽
+					h:高
+					sta:起始角度
+					swa:旋转角度
+			>
+
+		*:复合图形:
+			x:横坐标
+			y:纵坐标
+			scale:缩放比例
+      
+
+
+
+-->
+<empty/>
