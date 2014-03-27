@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDemo));
             this.txtXmlFile = new System.Windows.Forms.TextBox();
             this.btnReload = new System.Windows.Forms.Button();
             this.btnSetXmlFile = new System.Windows.Forms.Button();
-            this.vcMain = new Sin.VectorView.VectorControl();
             this.cbAutoReload = new System.Windows.Forms.CheckBox();
             this.tmRefresh = new System.Windows.Forms.Timer(this.components);
+            this.vcMain = new Sin.VectorView.VectorControl();
             this.SuspendLayout();
             // 
             // txtXmlFile
@@ -68,17 +69,6 @@
             this.btnSetXmlFile.UseVisualStyleBackColor = true;
             this.btnSetXmlFile.Click += new System.EventHandler(this.btnSetXmlFile_Click);
             // 
-            // vcMain
-            // 
-            this.vcMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.vcMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.vcMain.Location = new System.Drawing.Point(12, 39);
-            this.vcMain.Name = "vcMain";
-            this.vcMain.Size = new System.Drawing.Size(706, 434);
-            this.vcMain.TabIndex = 3;
-            // 
             // cbAutoReload
             // 
             this.cbAutoReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -99,6 +89,17 @@
             this.tmRefresh.Interval = 1000;
             this.tmRefresh.Tick += new System.EventHandler(this.tmRefresh_Tick);
             // 
+            // vcMain
+            // 
+            this.vcMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.vcMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.vcMain.Location = new System.Drawing.Point(12, 39);
+            this.vcMain.Name = "vcMain";
+            this.vcMain.Size = new System.Drawing.Size(706, 434);
+            this.vcMain.TabIndex = 3;
+            // 
             // FormDemo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -109,6 +110,7 @@
             this.Controls.Add(this.btnSetXmlFile);
             this.Controls.Add(this.btnReload);
             this.Controls.Add(this.txtXmlFile);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormDemo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VectorViewDemo";

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过下列属性集
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("VectorView")]
+[assembly: AssemblyTitle("VectorView .NET 2.0")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ynsoft")]
-[assembly: AssemblyProduct("VectorView")]
-[assembly: AssemblyCopyright("版权所有 (C) ynsoft 2014")]
+[assembly: AssemblyCompany("Sin Corp.")]
+[assembly: AssemblyProduct("VectorView .NET 2.0")]
+[assembly: AssemblyCopyright("版权所有 (C) Sin Corp. 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
