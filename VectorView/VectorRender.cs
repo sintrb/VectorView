@@ -20,7 +20,9 @@ namespace Sin.VectorView
         }
 
 
-
+        /// <summary>
+        /// 缩放比例
+        /// </summary>
         public float Scale
         {
             get
@@ -35,6 +37,9 @@ namespace Sin.VectorView
             }
         }
 
+        /// <summary>
+        /// 横坐标偏移
+        /// </summary>
         public float OffsetX
         {
             get
@@ -47,6 +52,9 @@ namespace Sin.VectorView
             }
         }
 
+        /// <summary>
+        /// 纵坐标偏移
+        /// </summary>
         public float OffsetY
         {
             get
@@ -59,21 +67,30 @@ namespace Sin.VectorView
             }
         }
 
-
+        // 内部用字体
         private Font font = new Font(new FontFamily("微软雅黑"), 14);
 
         /// <summary>
         /// 将图形渲染到绘图图面上
         /// </summary>
         /// <param name="g">绘图图面</param>
-        public void RenderGraphics(Graphics g)
+        /// /// <param name="size">画布尺寸</param>
+        public void RenderGraphics(Graphics g, SizeF size)
         {
-            foreach (VectorObject vo in this.VectorObjects)
+            if (VectorObjects.Count > 0)
             {
-                vo.RenderObject(g, this.dcxt);
+                foreach (VectorObject vo in this.VectorObjects)
+                {
+                    vo.RenderObject(g, this.dcxt);
+                }
+                g.DrawString(String.Format("S:{0:0.0} X:{1:0} Y:{2:0}", this.Scale, this.OffsetX, this.OffsetY), font, Brushes.Red, 0, 0);
             }
-
-            g.DrawString(String.Format("S:{0:0.0} X:{1:0} Y:{2:0}", this.Scale, this.OffsetX, this.OffsetY), font, Brushes.Red, 0, 0);
+            else
+            {
+                String s = "VectorView " + VectorView.VERSIONSTRING;
+                SizeF sz = g.MeasureString(s, font);
+                g.DrawString(s, font, Brushes.Red, (size.Width - sz.Width) / 2, (size.Height - sz.Height) / 2);
+            }
         }
 
 

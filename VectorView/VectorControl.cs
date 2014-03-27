@@ -98,7 +98,7 @@ namespace Sin.VectorView
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            this.render.RenderGraphics(e.Graphics);
+            this.render.RenderGraphics(e.Graphics, new SizeF(Width, Height));
         }
 
 

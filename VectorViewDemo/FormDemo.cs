@@ -12,15 +12,19 @@ namespace VectorViewDemo
 {
     public partial class FormDemo : Form
     {
+        public String VERSION = "1.0";
         public FormDemo()
         {
             InitializeComponent();
+
+            this.Text = this.Text + " " + VERSION;
 
             this.txtXmlFile.Text = Environment.CurrentDirectory + "\\" + "data.xml";
             ofd.FileName = this.txtXmlFile.Text;
 
 
             btnReload_Click(null, null);
+            this.tmRefresh.Enabled = this.cbAutoReload.Checked;
         }
 
         private OpenFileDialog ofd = new OpenFileDialog();
@@ -35,6 +39,8 @@ namespace VectorViewDemo
 
         private void btnReload_Click(object sender, EventArgs e)
         {
+            if (this.txtXmlFile.Text.Trim().Length == 0)
+                return;
             try
             {
                 List<VectorObject> vos = ParseUtils.ParseXMLFile(this.txtXmlFile.Text);

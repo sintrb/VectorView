@@ -81,7 +81,10 @@
             // 
             // cbAutoReload
             // 
+            this.cbAutoReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbAutoReload.AutoSize = true;
+            this.cbAutoReload.Checked = true;
+            this.cbAutoReload.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbAutoReload.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbAutoReload.Location = new System.Drawing.Point(627, 13);
             this.cbAutoReload.Name = "cbAutoReload";
