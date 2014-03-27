@@ -81,7 +81,8 @@ namespace Sin.VectorView
             {
                 foreach (VectorObject vo in this.VectorObjects)
                 {
-                    vo.RenderObject(g, this.dcxt);
+                    if(vo.Display)
+                        vo.RenderObject(g, this.dcxt);
                 }
                 g.DrawString(String.Format("S:{0:0.0} X:{1:0} Y:{2:0}", this.Scale, this.OffsetX, this.OffsetY), font, Brushes.Red, 0, 0);
             }

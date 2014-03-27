@@ -6,7 +6,7 @@ namespace Sin.VectorView
 {
     public static class VectorView
     {
-        public const int VERSION = 100;
-        public const String VERSIONSTRING = "1.0";
+        public const int VERSION = 101;
+        public const String VERSIONSTRING = "1.0.1";
     }
 }

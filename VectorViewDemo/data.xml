@@ -28,7 +28,7 @@
 
   <!-- 图形数据 -->
   <vectors>
-    <pie x="0" y="0" w="200" h="100" sta="0" swa="300" pen="pen" brush="brush" fill="true"></pie>
+    <pie display="false"  x="0" y="0" w="200" h="100" sta="0" swa="300" pen="pen" brush="brush" fill="true"></pie>
     <arc x="0" y="0" w="200" h="200" sta="0" swa="300" pen="pen" brush="brush" fill="true"></arc>
   </vectors>
 </vector>

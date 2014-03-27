@@ -15,7 +15,7 @@ namespace Sin.VectorView
         public VectorObject Parent = null;
         public ContextAttributes Attributes = null;
         public float ScaleWeight = 1.0f;
-        
+        public bool Display = true;
         virtual public void RenderObject(Graphics g, DrawContext dcxt)
         {
             throw new Exception("VectorObject基类未实现渲染");
@@ -197,7 +197,8 @@ namespace Sin.VectorView
             DrawContext ndcxt = new DrawContext(dcxt.Scale, dcxt.X_V2S(x), dcxt.Y_V2S(y));
             foreach (VectorObject vo in Children)
             {
-                vo.RenderObject(g, ndcxt);
+                if(vo.Display)
+                    vo.RenderObject(g, ndcxt);
             }
         }
         public void AddChild(VectorObject vo)
