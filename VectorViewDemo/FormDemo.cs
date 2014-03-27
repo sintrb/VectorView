@@ -41,6 +41,12 @@ namespace VectorViewDemo
         {
             if (this.txtXmlFile.Text.Trim().Length == 0)
                 return;
+#if DEBUG
+            List<VectorObject> vos = ParseUtils.ParseXMLFile(this.txtXmlFile.Text);
+            this.vcMain.VectorObjects.Clear();
+            this.vcMain.VectorObjects.AddRange(vos);
+            this.vcMain.Invalidate();
+#else
             try
             {
                 List<VectorObject> vos = ParseUtils.ParseXMLFile(this.txtXmlFile.Text);
@@ -52,6 +58,7 @@ namespace VectorViewDemo
             {
                 MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
             }
+#endif
         }
 
 

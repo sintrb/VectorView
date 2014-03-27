@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<vector version="1.0">
+<vector version="1.0.1">
 
   <!-- 预定义值 -->
   <values>
-    <title>测试</title>
+    <title>测\\n试</title>
   </values>
 
   <!-- 画刷定义 -->
@@ -23,13 +23,16 @@
 
   <!-- 预定义形状 -->
   <shapes>
-    
+    <myshap>
+      <pie x="0" y="0" w="200" h="100" sta="0" swa="300" fill="true"></pie>
+      <arc x="0" y="0" w="200" h="200" sta="0" swa="300" fill="true"></arc>
+      <text x="100" y="100" text="#title"></text>
+    </myshap>
   </shapes>
 
   <!-- 图形数据 -->
   <vectors>
-    <pie display="false"  x="0" y="0" w="200" h="100" sta="0" swa="300" pen="pen" brush="brush" fill="true"></pie>
-    <arc x="0" y="0" w="200" h="200" sta="0" swa="300" pen="pen" brush="brush" fill="true"></arc>
+    <myshap x="0" y="0" pen="pen" brush="solid" font="font" title="$title"></myshap>
   </vectors>
 </vector>
 
