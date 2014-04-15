@@ -7,6 +7,8 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
+using System.Xml;
+
 using Sin.VectorView;
 namespace Sin.VectorView
 {
@@ -165,6 +167,26 @@ namespace Sin.VectorView
                 AjustScale(2.0f, e.X, e.Y); // 放大两倍
             else if (e.Button == MouseButtons.Right)
                 AjustScale(0.5f, e.X, e.Y); // 缩小到一半
+        }
+
+        public XmlElement GenSVG(String filename)
+        {
+            XmlDocument dom = new XmlDocument();
+            XmlElement svg = dom.CreateElement("svg");
+            svg.SetAttribute("xmlns", "http://www.w3.org/2000/svg");
+            // dom.AppendChild(dom);
+
+            // DrawContext dcxt = new DrawContext(1, 0, 0);
+
+            foreach (VectorObject vo in this.VectorObjects)
+            {
+                XmlElement ele = vo.ExportSvg(dom, this.render.DrawContext);
+                if (ele != null)
+                    svg.AppendChild(ele);
+            }
+            dom.AppendChild(svg);
+            dom.Save(filename);
+            return svg;
         }
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="VectorObject.cs" />
     <Compile Include="VectorPath.cs" />
     <Compile Include="VectorRender.cs" />
+    <Compile Include="VectorSvgUtils.cs" />
     <Compile Include="VectorView.cs" />
   </ItemGroup>
   <ItemGroup>

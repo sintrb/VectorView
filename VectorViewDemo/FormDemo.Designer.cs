@@ -97,7 +97,6 @@
             this.tsmiFileExportSVG.Name = "tsmiFileExportSVG";
             this.tsmiFileExportSVG.Size = new System.Drawing.Size(152, 22);
             this.tsmiFileExportSVG.Text = "导出SVG...";
-            this.tsmiFileExportSVG.Visible = false;
             this.tsmiFileExportSVG.Click += new System.EventHandler(this.tsmiFileExportSVG_Click);
             // 
             // toolStripSeparator1

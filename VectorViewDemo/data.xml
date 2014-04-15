@@ -15,10 +15,10 @@
   <!-- 画笔定义 -->
   <pens>
     <!-- 画笔定义 -->
-    <pen type="solid" color="FF000000"  width="2.0"></pen>
+    <pen type="solid" color="FF0000FF"  width="1.0"></pen>
   </pens>
   <fonts>
-    <font name="微软雅黑" size="20"></font>
+    <font name="微软雅黑" size="30"></font>
   </fonts>
 
   <!-- 预定义形状 -->
@@ -28,13 +28,31 @@
       <arc x="0" y="0" w="200" h="200" sta="0" swa="300" fill="true"></arc>
       <text x="100" y="100" text="#title"></text>
     </myshap>
+    <cross>
+      <line x1="0" y1="0" x2="100" y2="100"/>
+      <line x1="0" y1="100" x2="100" y2="0"/>
+      <circle x="50" y="50" w="50" h="50" fill="true"/>
+      <box x="0" y="0" w="100" h="100" />
+    </cross>
+
+
+    <twocross>
+      <text x="0" y="-25" font="font" text="Hello\nSVG~~~\nABsfajksdfjaksdjflasdf" />
+      <cross x="0" y="0"/>
+      <cross x="100" y="0"/>
+      <cross x="0" y="100"/>
+      <cross x="100" y="100"/>
+    </twocross>
   </shapes>
 
   <!-- 图形数据 -->
   <vectors>
-    <myshap x="0" y="0" pen="pen" brush="solid" font="font" title="$title"></myshap>
+    <twocross x="400" y="100" brush="solid" pen="pen"/>
+    <twocross x="400" y="200" brush="solid" pen="pen"/>
+    <twocross x="400" y="400" brush="solid" pen="pen"/>
+    <twocross x="400" y="600" brush="solid" pen="pen"/>
+    <twocross x="400" y="800" brush="solid" pen="pen"/>
   </vectors>
 </vector>
-
 
 

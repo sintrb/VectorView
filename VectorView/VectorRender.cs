@@ -14,6 +14,15 @@ namespace Sin.VectorView
         private DrawContext dcxt = new DrawContext();
         public List<VectorObject> VectorObjects = null;
 
+
+        public DrawContext DrawContext
+        {
+            get
+            {
+                return dcxt;
+            }
+        }
+
         public VectorRender()
         {
             VectorObjects = new List<VectorObject>();

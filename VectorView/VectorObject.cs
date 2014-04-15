@@ -5,6 +5,8 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
+using System.Xml;
+
 namespace Sin.VectorView
 {
     /// <summary>
@@ -73,6 +75,12 @@ namespace Sin.VectorView
         {
             return true;
         }
+
+        virtual public XmlElement ExportSvg(XmlDocument dom, DrawContext dcxt)
+        {
+            System.Diagnostics.Debug.WriteLine("ExportSVG fail: " + this.GetType().Name);
+            return null;
+        }
     }
 
     /// <summary>
@@ -96,15 +104,31 @@ namespace Sin.VectorView
         {
             return base.CheckRequire() && Assert.NotNull("»­±Ê", Pen);
         }
+
+        public override XmlElement ExportSvg(XmlDocument dom, DrawContext dcxt)
+        {
+            XmlElement line = dom.CreateElement("line");
+            // <line x1="0" y1="0" x2="300" y2="300" style="stroke:rgb(99,99,99);stroke-width:2"/>
+            line.SetAttribute("x1", "" + dcxt.X_V2S(x1));
+            line.SetAttribute("y1", "" + dcxt.Y_V2S(y1));
+            line.SetAttribute("x2", "" + dcxt.X_V2S(x2));
+            line.SetAttribute("y2", "" + dcxt.Y_V2S(y2));
+            line.SetAttribute("style", VectorSvgUtils.Pen2Style(PenWhenCxt(dcxt).Pen));
+            return line;
+        }
+    }
+
+    public class VectorFillable : VectorObject
+    {
+        protected bool fill = false;
     }
 
     /// <summary>
     /// Ê¸Á¿Ô²
     /// </summary>
-    public class VectorCircle : VectorObject
+    public class VectorCircle : VectorFillable
     {
         private float x, y, w, h;
-        private bool fill = false;
         public VectorCircle(float x, float y, float w, float h, bool fill)
         {
             this.x = x;
@@ -116,23 +140,36 @@ namespace Sin.VectorView
         override public void RenderObject(Graphics g, DrawContext dcxt)
         {
             if (fill)
-                g.FillEllipse(BrushWhenCxt(dcxt).Brush, dcxt.X_V2S(x - w / 2), dcxt.Y_V2S(y - h / 2), dcxt.W_V2S(w), dcxt.W_V2S(h));
+                g.FillEllipse(BrushWhenCxt(dcxt).Brush, dcxt.X_V2S(x - w / 2), dcxt.Y_V2S(y - h / 2), dcxt.W_V2S(w), dcxt.H_V2S(h));
             else
-                g.DrawEllipse(PenWhenCxt(dcxt).Pen, dcxt.X_V2S(x - w / 2), dcxt.Y_V2S(y - h / 2), dcxt.W_V2S(w), dcxt.W_V2S(h));
+                g.DrawEllipse(PenWhenCxt(dcxt).Pen, dcxt.X_V2S(x - w / 2), dcxt.Y_V2S(y - h / 2), dcxt.W_V2S(w), dcxt.H_V2S(h));
         }
         public override bool CheckRequire()
         {
             return base.CheckRequire() && (fill && Assert.NotNull("»­±Ê", Pen) || !fill && Assert.NotNull("»­Ë¢", Brush));
+        }
+
+        public override XmlElement ExportSvg(XmlDocument dom, DrawContext dcxt)
+        {
+            XmlElement circle = dom.CreateElement("ellipse");
+            circle.SetAttribute("cx", "" + dcxt.X_V2S(x));
+            circle.SetAttribute("cy", "" + dcxt.Y_V2S(y));
+            circle.SetAttribute("rx", "" + dcxt.W_V2S(w/2));
+            circle.SetAttribute("ry", "" + dcxt.H_V2S(h/2));
+            if (fill)
+                circle.SetAttribute("style", VectorSvgUtils.Brush2Style(BrushWhenCxt(dcxt).Brush));
+            else
+                circle.SetAttribute("style", VectorSvgUtils.Pen2Style(PenWhenCxt(dcxt).Pen) + "fill:none;");
+            return circle;
         }
     }
 
     /// <summary>
     /// Ê¸Á¿¾ØÐÎ¿ò
     /// </summary>
-    public class VectorBox : VectorObject
+    public class VectorBox : VectorFillable
     {
         private float x, y, w, h;
-        private bool fill = false;
         public VectorBox(float x, float y, float w, float h, bool fill)
         {
             this.x = x;
@@ -153,6 +190,20 @@ namespace Sin.VectorView
         {
             return base.CheckRequire() && (fill && Assert.NotNull("»­±Ê", Pen) || !fill && Assert.NotNull("»­Ë¢", Brush));
         }
+
+        public override XmlElement ExportSvg(XmlDocument dom, DrawContext dcxt)
+        {
+            XmlElement box = dom.CreateElement("rect");
+            box.SetAttribute("x", "" + dcxt.X_V2S(x));
+            box.SetAttribute("y", "" + dcxt.Y_V2S(y));
+            box.SetAttribute("width", "" + dcxt.W_V2S(w));
+            box.SetAttribute("height", "" + dcxt.H_V2S(h));
+            if (fill)
+                box.SetAttribute("style", VectorSvgUtils.Brush2Style(BrushWhenCxt(dcxt).Brush));
+            else
+                box.SetAttribute("style", VectorSvgUtils.Pen2Style(PenWhenCxt(dcxt).Pen) + "fill:none;");
+            return box;
+        }
     }
 
     /// <summary>
@@ -162,6 +213,7 @@ namespace Sin.VectorView
     {
         private float x, y;
         private String text;
+        private static Graphics G = null;
         public VectorText(float x, float y, String text)
         {
             this.x = x;
@@ -175,6 +227,37 @@ namespace Sin.VectorView
         public override bool CheckRequire()
         {
             return base.CheckRequire() && Assert.NotNull("×ÖÌå", Font) && Assert.NotNull("»­Ë¢", Brush);
+        }
+
+        public override XmlElement ExportSvg(XmlDocument dom, DrawContext dcxt)
+        {
+            XmlElement text = dom.CreateElement("text");
+            String style = VectorSvgUtils.Brush2Style(BrushWhenCxt(dcxt).Brush) + "font-size:" + FontWhenCxt(dcxt).Font.Size+";";
+            text.SetAttribute("x", "" + dcxt.X_V2S(x));
+            text.SetAttribute("y", "" + dcxt.Y_V2S(y + FontWhenCxt(dcxt).Font.Size));
+            
+            text.SetAttribute("style", style);
+            if (this.text.Contains("\n"))
+            {
+                if (G == null)
+                    G = Graphics.FromImage(new Bitmap(1, 1));
+                Font font = FontWhenCxt(dcxt).Font;
+                SizeF sf = new SizeF(0, 0);
+                foreach (String l in this.text.Split('\n'))
+                {
+                    XmlElement xl = dom.CreateElement("tspan");
+                    xl.SetAttribute("dx", "-" + dcxt.W_V2S(sf.Width));
+                    xl.SetAttribute("dy", ""+ dcxt.H_V2S(sf.Height));
+                    sf = G.MeasureString(l, font);
+                    xl.InnerText = l;
+                    text.AppendChild(xl);
+                }
+            }
+            else
+            {
+                text.InnerText = this.text;
+            }
+            return text;
         }
     }
 
@@ -221,16 +304,28 @@ namespace Sin.VectorView
             }
             return false;
         }
+
+        public override XmlElement ExportSvg(XmlDocument dom, DrawContext dcxt)
+        {
+            DrawContext ndcxt = new DrawContext(dcxt.Scale, dcxt.X_V2S(x), dcxt.Y_V2S(y));
+            XmlElement ele = dom.CreateElement("g");
+            foreach (VectorObject vo in Children)
+            {
+                XmlElement cle = vo.ExportSvg(dom, ndcxt);
+                if (cle != null)
+                    ele.AppendChild(cle);
+            }
+            return ele;
+        }
     }
 
 
     /// <summary>
     /// Ê¸Á¿±ýÍ¼
     /// </summary>
-    public class VectorPie : VectorObject
+    public class VectorPie : VectorFillable
     {
         private float x, y, w, h, startagl, sweepagl;
-        private bool fill = false;
         public VectorPie(float x, float y, float w, float h, float startagl, float sweepagl, bool fill)
         {
             this.x = x;

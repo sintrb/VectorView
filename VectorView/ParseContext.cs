@@ -193,6 +193,8 @@ namespace Sin.VectorView
         private VectorObject CurParent = null;
         public VectorObject ParseToVector(XmlNode node, ParseCallback cbk)
         {
+            if (node is System.Xml.XmlComment)
+                return null;
             if (cbk != null && cbk.BeforeParse != null && cbk.BeforeParse(this, node) == false)
                 return null;
             String tag = node.Name;

@@ -21,6 +21,9 @@ namespace VectorViewDemo
             this.Text = this.Text + " " + VERSION;
 
             this.tmRefresh.Enabled = this.tsmiControlAutoReload.Checked;
+
+            ofd.FileName = "D:\\MyDoc\\DO\\VectorView\\VectorViewDemo\\data.xml";
+            efd.FileName = "D:\\MyDoc\\DO\\VectorView\\VectorViewDemo\\data.svg";
         }
 
         private OpenFileDialog ofd = new OpenFileDialog();
@@ -54,14 +57,19 @@ namespace VectorViewDemo
             }
         }
 
+        private OpenFileDialog efd = new OpenFileDialog();
         private void tsmiFileExportSVG_Click(object sender, EventArgs e)
         {
-
+            System.Xml.XmlElement svg = vcMain.GenSVG(efd.FileName);
+            //if (ofd.ShowDialog() == DialogResult.OK)
+            //{
+                
+            //}
         }
 
         private void tsmiFileExit_Click(object sender, EventArgs e)
         {
-
+            Application.Exit();
         }
 
         private void tsmiControlReload_Click(object sender, EventArgs e)
@@ -74,6 +82,8 @@ namespace VectorViewDemo
             this.vcMain.VectorObjects.Clear();
             this.vcMain.VectorObjects.AddRange(vos);
             this.vcMain.Invalidate();
+
+            this.tsmiFileExportSVG_Click(null, null);
 #else
             try
             {
@@ -81,6 +91,8 @@ namespace VectorViewDemo
                 this.vcMain.VectorObjects.Clear();
                 this.vcMain.VectorObjects.AddRange(vos);
                 this.vcMain.Invalidate();
+
+                this.tsmiFileExportSVG_Click(null, null);
             }
             catch (Exception ex)
             {
