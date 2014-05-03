@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<vector version="1.0.1">
+
+  <!-- 预定义值 -->
+  <values>
+    <title>测\n试</title>
+  </values>
+
+  <!-- 画刷定义 -->
+  <brushes>
+    <solid type="solid" color="FF000000"></solid>
+    <brush type="hatch" forecolor="FFFF0000" backcolor="00FFFFFF" style="SmallGrid"></brush>
+  </brushes>
+
+  <!-- 画笔定义 -->
+  <pens>
+    <!-- 画笔定义 -->
+    <pen type="solid" color="FF000000"  width="2.0"></pen>
+  </pens>
+  <fonts>
+    <font name="微软雅黑" size="20"></font>
+  </fonts>
+
+  <!-- 预定义形状 -->
+  <shapes>
+    <myshap>
+      <pie x="0" y="0" w="200" h="100" sta="0" swa="300" fill="true"></pie>
+      <arc x="0" y="0" w="200" h="200" sta="0" swa="300" fill="true"></arc>
+      <text x="100" y="100" text="#title"></text>
+    </myshap>
+  </shapes>
+
+  <!-- 图形数据 -->
+  <vectors>
+    <myshap x="0" y="0" pen="pen" brush="solid" font="font" title="$title"></myshap>
+  </vectors>
+</vector>
+
+
+
