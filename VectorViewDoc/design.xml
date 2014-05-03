@@ -4,7 +4,7 @@
 
 
 xml文件格式说明
-	values:值预定义，定义之后通过$valname来获取，支持递归。#valuename来获取父级属性，支持递归(1.1.1)。
+	values:值预定义，定义之后通过$valname来获取，支持递归。#valuename来获取父级属性，支持递归(1.1.1)，支持表达式求值、多变量(1.1.2)。
 		示例：
 			<name>The Name</name>
 
