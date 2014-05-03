@@ -177,10 +177,10 @@ namespace Sin.VectorView
             // dom.AppendChild(dom);
 
             // DrawContext dcxt = new DrawContext(1, 0, 0);
-
+            DrawContext dc = new DrawContext();
             foreach (VectorObject vo in this.VectorObjects)
             {
-                XmlElement ele = vo.ExportSvg(dom, this.render.DrawContext);
+                XmlElement ele = vo.ExportSvg(dom, dc);
                 if (ele != null)
                     svg.AppendChild(ele);
             }

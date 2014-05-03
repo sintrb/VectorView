@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -26,52 +27,73 @@ namespace Sin.VectorView
 
         public List<String> CurIgnorAttrs = null;
         public List<String> ValueStack = new List<string>();
+
+        private static Regex R_VAL = new Regex("^[\\#\\$][a-zA-Z0-9_]+$");
+        private static Regex R_MVAL = new Regex("[\\#\\$][a-zA-Z0-9_]+");
         public String DeepValOf(String val, XmlNode node, VectorObject prt)
         {
-            if (ValueStack.Contains(val))
+            String sk = node.Name + ":" +val;
+            if (ValueStack.Contains(sk))
             {
                 StringBuilder sb = new StringBuilder();
                 foreach(String v in ValueStack){
                     sb.Append(v);
                     sb.Append(">");
                 }
-                sb.Append(val);
+                sb.Append(sk);
                 throw new Exception("存在值递归:" + sb.ToString());
             }
-            ValueStack.Add(val);   
+            ValueStack.Add(sk);
             String retval = val;
-            if (val != null && val.Length>0)
+            if (val != null && val.Length > 0)
             {
-                String key = val.Substring(1);
-                switch (val[0])
+                if (R_VAL.IsMatch(val))
                 {
-                    case '$':
-                        if (this.Values.Contains(key))
-                        {
-                            retval = DeepValOf(((XmlNode)this.Values[key]).InnerText, node, prt);
-                        }
-                        else
-                        {
-                            throw new Exception(String.Format("预定义值{0}不存在!", key));
-                        }
-                        break;
-                    case '#':
-                        if (node != null && node.Attributes[key] != null)
-                        {
-                            retval = DeepValOf(node.Attributes[key].Value, node, prt);
-                        }
-                        else if (prt != null && prt.Attributes!=null && prt.Attributes[key] != null)
-                        {
-                            retval = DeepValOf(prt.Attributes[key].ToString(), node, prt);
-                        }
-                        else
-                        {
-                            throw new Exception(String.Format("{0}的属性{1}不存在!", node!=null?node.OuterXml:"PRT", key));
-                        }
-                        break;
+                    String key = val.Substring(1);
+                    switch (val[0])
+                    {
+                        case '$':
+                            if (this.Values.Contains(key))
+                            {
+                                retval = DeepValOf(((XmlNode)this.Values[key]).InnerText, node, prt);
+                            }
+                            else
+                            {
+                                throw new Exception(String.Format("预定义值{0}不存在!", key));
+                            }
+                            break;
+                        case '#':
+                            if (node != null && node.Attributes!=null && node.Attributes[key] != null)
+                            {
+                                retval = DeepValOf(node.Attributes[key].Value, node, prt);
+                            }
+                            else if (prt != null && prt.Attributes != null && prt.Attributes[key] != null)
+                            {
+                                retval = DeepValOf(prt.Attributes[key].ToString(), node, prt);
+                            }
+                            else
+                            {
+                                throw new Exception(String.Format("{0}的属性{1}不存在!", node != null ? node.OuterXml : "PRT", key));
+                            }
+                            break;
+                    }
                 }
+                else
+                {
+                    // 
+                    Match m = R_MVAL.Match(val);
+                    if (m.Success)
+                    {
+                        String ns = val.Substring(0, m.Index) + DeepValOf(m.Value, node, prt) + val.Substring(m.Index + m.Length);
+                        if (R_MVAL.IsMatch(ns))
+                            retval = DeepValOf(ns, node, prt);
+                        else
+                            retval = ns;
+                    }
+                }
+            
             }
-            ValueStack.Remove(val);
+            ValueStack.Remove(sk);
             return retval;
         }
 
@@ -102,7 +124,7 @@ namespace Sin.VectorView
 
         public float FloatAttr(XmlNode node, String name)
         {
-            return float.Parse(AttrOf(node, name));
+            return (float)Third.StringValue.ToValue(AttrOf(node, name));
         }
 
         public bool BooltAttr(XmlNode node, String name)
@@ -197,6 +219,10 @@ namespace Sin.VectorView
                 return null;
             if (cbk != null && cbk.BeforeParse != null && cbk.BeforeParse(this, node) == false)
                 return null;
+            if (BooltAttr(node, "break"))
+            {
+                System.Diagnostics.Debug.WriteLine("break: " + node.Name);
+            }
             String tag = node.Name;
             if (ParseStack.Contains(tag))
             {
@@ -302,13 +328,18 @@ namespace Sin.VectorView
                     // 扩展解析失败，判断是否存在该复合图形
                     if (!Shapes.Contains(tag))
                         throw new Exception(String.Format("未定义图形{0}", tag));
+                    else
+                    {
+                        // 属性注入
 
+                    }
                     // 解析复合图形
                     VectorComplex vc = new VectorComplex(FloatAttr(node, "x") * Scale, FloatAttr(node, "y") * Scale);
                     IgnorAttrs.Add("x");
                     IgnorAttrs.Add("y");
 
-                    // 对于符合图形需要先加
+                    // 对于复合图形需要先加
+                    AddExtAttribute(IgnorAttrs, (XmlNode)Shapes[tag], vc);
                     AddExtAttribute(IgnorAttrs, node, vc);
 
                     float scl = this.Scale;
@@ -345,7 +376,7 @@ namespace Sin.VectorView
 
         private void AddExtAttribute(List<String> IgnorAttrs, XmlNode node, VectorObject vo)
         {
-            ContextAttributes atts = new ContextAttributes();
+            ContextAttributes atts = vo.Attributes == null ? new ContextAttributes() : vo.Attributes;
             foreach (XmlAttribute xa in node.Attributes)
             {
                 if (!IgnorAttrs.Contains(xa.Name))

@@ -234,7 +234,8 @@ namespace Sin.VectorView
             XmlElement text = dom.CreateElement("text");
             String style = VectorSvgUtils.Brush2Style(BrushWhenCxt(dcxt).Brush) + "font-size:" + FontWhenCxt(dcxt).Font.Size+";";
             text.SetAttribute("x", "" + dcxt.X_V2S(x));
-            text.SetAttribute("y", "" + dcxt.Y_V2S(y + FontWhenCxt(dcxt).Font.Size));
+            text.SetAttribute("y", "" + dcxt.Y_V2S(y + FontWhenCxt(dcxt).Font.Size + 2));
+            //text.SetAttribute("y", "" + dcxt.Y_V2S(y));
             
             text.SetAttribute("style", style);
             if (this.text.Contains("\n"))

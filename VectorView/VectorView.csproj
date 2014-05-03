@@ -42,6 +42,8 @@
     <Compile Include="ParseContext.cs" />
     <Compile Include="ParseUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Third\SimpleRPN.cs" />
+    <Compile Include="Third\StringValue.cs" />
     <Compile Include="VectorAttrubutes.cs" />
     <Compile Include="VectorControl.cs">
       <SubType>UserControl</SubType>
