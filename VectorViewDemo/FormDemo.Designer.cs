@@ -123,7 +123,7 @@
             // tsmiControlReload
             // 
             this.tsmiControlReload.Name = "tsmiControlReload";
-            this.tsmiControlReload.Size = new System.Drawing.Size(122, 22);
+            this.tsmiControlReload.Size = new System.Drawing.Size(152, 22);
             this.tsmiControlReload.Text = "重新加载";
             this.tsmiControlReload.Click += new System.EventHandler(this.tsmiControlReload_Click);
             // 
@@ -132,7 +132,7 @@
             this.tsmiControlAutoReload.Checked = true;
             this.tsmiControlAutoReload.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiControlAutoReload.Name = "tsmiControlAutoReload";
-            this.tsmiControlAutoReload.Size = new System.Drawing.Size(122, 22);
+            this.tsmiControlAutoReload.Size = new System.Drawing.Size(152, 22);
             this.tsmiControlAutoReload.Text = "自动加载";
             this.tsmiControlAutoReload.Click += new System.EventHandler(this.tsmiControlAutoReload_Click);
             // 
@@ -147,7 +147,7 @@
             // tsmiHelpAbout
             // 
             this.tsmiHelpAbout.Name = "tsmiHelpAbout";
-            this.tsmiHelpAbout.Size = new System.Drawing.Size(98, 22);
+            this.tsmiHelpAbout.Size = new System.Drawing.Size(152, 22);
             this.tsmiHelpAbout.Text = "关于";
             this.tsmiHelpAbout.Click += new System.EventHandler(this.tsmiHelpAbout_Click);
             // 

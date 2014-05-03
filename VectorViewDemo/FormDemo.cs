@@ -12,9 +12,9 @@ namespace VectorViewDemo
 {
     public partial class FormDemo : Form
     {
-        public String VERSION = "1.1";
+        public String VERSION = "1.2";
 
-        public FormDemo()
+        public FormDemo(String[] args)
         {
             InitializeComponent();
 
@@ -22,8 +22,16 @@ namespace VectorViewDemo
 
             this.tmRefresh.Enabled = this.tsmiControlAutoReload.Checked;
 
-            ofd.FileName = "D:\\MyDoc\\DO\\VectorView\\VectorViewDemo\\data.xml";
-            efd.FileName = "D:\\MyDoc\\DO\\VectorView\\VectorViewDemo\\data.svg";
+            if (args != null && args.Length > 0)
+            {
+                ofd.FileName = args[0];
+                efd.FileName = ofd.FileName.Substring(0, ofd.FileName.LastIndexOf('.')) + ".svg";
+            }
+            else
+            {
+                //ofd.FileName = "D:\\MyDoc\\DO\\VectorView\\VectorViewDemo\\data.xml";
+                //efd.FileName = "D:\\MyDoc\\DO\\VectorView\\VectorViewDemo\\data.svg";
+            }
         }
 
         private OpenFileDialog ofd = new OpenFileDialog();
@@ -44,6 +52,7 @@ namespace VectorViewDemo
                 if (PreWriteTime == null || PreWriteTime.CompareTo(fi.LastWriteTime) != 0)
                 {
                     PreWriteTime = fi.LastWriteTime;
+                    System.Threading.Thread.Sleep(300);
                     tsmiControlReload_Click(null, null);
                 }
             }
@@ -53,6 +62,7 @@ namespace VectorViewDemo
         {
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+                efd.FileName = ofd.FileName.Substring(0, ofd.FileName.LastIndexOf('.')) + ".svg";
                 tsmiControlReload_Click(null, null);
             }
         }
